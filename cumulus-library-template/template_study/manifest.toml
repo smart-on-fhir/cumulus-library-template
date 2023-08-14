@@ -12,11 +12,11 @@ study_prefix = "template"
 # tables/view selecting subsets of data from FHIR data, tables/views creating 
 # summary statistics.
 
-#there are two special tables you can create that will be handles separately:
+# There are two special tables you can create that will be handled separately:
 #
 # [studyname]__meta_date - this will track the total range of data available
 # from a specific site
-# [studyname]__meta_version - this will allow you to specificy a version of the
+# [studyname]__meta_version - this will allow you to specify a version of the
 # data output schema, that can be incremented if you need to change it for any
 # reason.
 #
@@ -39,8 +39,8 @@ export_list = [
 ]
 
 
-# For most use cases, this should not be required, but if you need to run dynamically,
-# build tables, you can point to a python module that extends the TableBuilder class
+# For most use cases, this should not be required, but if you need to run Python code to
+# dynamically build tables, you can add a Python file that extends the TableBuilder class
 # inside cumulus_library. The core study provides an example of this. Table builders 
 # will always be run before any SQL queries are executed. 
 
