@@ -11,6 +11,16 @@ study_prefix = "template"
 # Recommended order: Any ancillary config (like a list of condition codes),
 # tables/view selecting subsets of data from FHIR data, tables/views creating 
 # summary statistics.
+
+#there are two special tables you can create that will be handles separately:
+#
+# [studyname]__meta_date - this will track the total range of data available
+# from a specific site
+# [studyname]__meta_version - this will allow you to specificy a version of the
+# data output schema, that can be incremented if you need to change it for any
+# reason.
+#
+# For examples of usage, refer to the US core tables created by the library.
 file_names = [
     "setup.sql",
     "lab_observations.sql",
@@ -29,13 +39,13 @@ export_list = [
 ]
 
 
-# For most use cases, this should not be required, but if you need to run code, you
-# can point to a python module. The vocab study provides an example of this. 
-# Python code will always be run before any SQL queries are executed.
-# [python_config]
+# For most use cases, this should not be required, but if you need to run dynamically,
+# build tables, you can point to a python module that extends the TableBuilder class
+# inside cumulus_library. The core study provides an example of this. Table builders 
+# will always be run before any SQL queries are executed. 
+
+# [table_builder_config]
 # file_names = [
-#     "my_script.py",
+#     "my_builder.py",
 # ]
 
-# If you'd like another language available, please reach out - we can likely 
-# accomadate, but we'd need to understand the use cases a little better.
