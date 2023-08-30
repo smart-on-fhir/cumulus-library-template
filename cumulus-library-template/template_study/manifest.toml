@@ -28,7 +28,6 @@ file_names = [
     "date_range.sql"
 ]
 
-
 # The following section defines parameters related to exporting study data from
 # your athena database
 [export_config]
@@ -48,4 +47,14 @@ export_list = [
 # file_names = [
 #     "my_builder.py",
 # ]
+
+# For generating counts table in a more standardized manner, we have a class in the 
+# main library you can extend that will handle most of the logic of assembling 
+# queries for you. We use this pattern for generating the core tables, as well
+# other studies authored inside BCH. These will always be run after any other
+# SQL queries have been generated
+[counts_builder_config]
+file_names = [
+    "count.py"
+]
 
