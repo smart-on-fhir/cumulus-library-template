@@ -21,4 +21,6 @@ Here's what we recommend:
 - Follow the comment instructions in `pyproject.toml` and `manifest.toml` to
     set up these files to work with Cumulus Library.
 - When invoking with `cumulus-library`, use the `--study_dir` flag to point to
-    what was formerly the `template_study` directory
+    what was formerly the `template_study` directory, or use the
+    `CUMULUS_LIBRARY_STUDY_DIR` env var to a filepath which contains your study
+    directory.
