@@ -1,7 +1,7 @@
 CREATE TABLE template__patient_cohort AS
 SELECT
     id,
-    birthdrate,
+    birthdate,
     gender,
     subject_ref
 FROM core__patient
