@@ -3,7 +3,7 @@ data_export/
 .python-version
 .DS_Store
 cumulus_library_columns.json
-.parquet
+*.parquet
 .ruff_cache
 
 # Byte-compiled / optimized / DLL files
