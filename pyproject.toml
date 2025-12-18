@@ -8,14 +8,15 @@
 name = "cumulus-library-template"
 # You can leave this alone to start. Only worry about it when you need to create
 # a package for other users
-version = "0.1.0"
-requires-python = ">= 3.9"
+version = "1.0.0"
+requires-python = ">= 3.11"
 # If you need python libraries, add them here
 dependencies = [
     # we'll try to keep this template up to date, but it's recommended to use the
     # latest minor version of cumulus-library
-    "cumulus-library >= 1.4.0",
-    "sqlfluff >= 2.3.4",
+    "cumulus-library >= 5.2.0b2",
+    "pandas",
+    "sqlfluff >= 3",
 ]
 # You can alter this to discuss your study specifics
 description = "SQL generation for cumulus template studies"
@@ -41,10 +42,14 @@ build-backend = "flit_core.buildapi"
 
 [project.optional-dependencies]
 dev = [
-    "black",
-    "pylint",    
+    "ruff < 0.15",
+    "pre-commit",
+]
+test = [
+    "pytest",
+    "pytest-cov"
 ]
 
 [tool.flit.sdist]
 # change this to the name of the study folder inside of the module directory
-include = ["template/"]
+include = ["cumulus_library_template/"]

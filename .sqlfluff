@@ -1,0 +1,18 @@
+[sqlfluff]
+dialect = athena
+sql_file_exts = .sql
+exclude_rules=
+    # these rule overfires on athena nested arrays
+    references.from,
+    structure.column_order,
+    structure.unused_join,
+    aliasing.unused,
+    # this rule interferes with FHIR naming conventions
+    capitalisation.identifiers
+max_line_length = 90
+
+[sqlfluff:rules:layout.long_lines]
+ignore_comment_lines = true
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = upper
