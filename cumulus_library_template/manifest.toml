@@ -62,7 +62,7 @@ files=[
 
 [[stages.default]]
 type = "build:parallel"
-description = "metadata_tables"
+description = "study metadata"
 files= [
     "queries/meta_date.sql",
     "queries/meta_version.sql",

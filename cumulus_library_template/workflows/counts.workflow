@@ -1,7 +1,7 @@
 # https://docs.smarthealthit.org/cumulus/library/workflows/counts.html
 # config_type specifies what workflow syntax to use
 config_type = "counts"
-## we're declaring a new table, `count_condition` (the prefix is automatically added)
+## we're declaring a new table, `count_condition` (the study prefix is automatically added)
 [tables.count_condition]
 # source_table is the table we're selecting from
 source_table = "template__condition"
