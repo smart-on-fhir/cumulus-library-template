@@ -14,7 +14,7 @@ requires-python = ">= 3.11"
 dependencies = [
     # we'll try to keep this template up to date, but it's recommended to use the
     # latest minor version of cumulus-library
-    "cumulus-library >= 5.2.0b2",
+    "cumulus-library >= 6.0.0",
     "pandas",
     "sqlfluff >= 3",
 ]

@@ -1,4 +1,0 @@
-config_type="file_upload"
-[tables.encounter_valueset]
-file = "../data/encounter_class_valueset.tsv"
-delimiter = "\t"
