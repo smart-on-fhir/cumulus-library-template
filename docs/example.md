@@ -13,44 +13,67 @@ with the commenting stripped out:
 ```toml
 study_prefix = "template"
 
-[file_config.file_names]
-"external data" = [
-    "workflows/upload_encounter_class.toml"    
+[[stages.default]]
+type = "build:parallel"
+description = "external data"
+files = [
+    "workflows/upload_encounter_class.workflow"    
 ]
-"study cohort" = [
+
+[[stages.default]]
+type = "build:parallel"
+description = "study cohort"
+files = [
   "queries/patients.sql",
 ]
-"other resources for patients" =[
+
+[[stages.default]]
+type = "build:serial"
+description = "other resources for patients"
+files=[
     "builders/conditions.py",
     "queries/encounters.sql",
 ]
-"metadata_tables" = [
+
+[[stages.default]]
+type = "build:parallel"
+description = "metadata_tables"
+files= [
     "queries/meta_date.sql",
     "queries/meta_version.sql",
 ]
-counts = [
-    "builders/count_conditions.py",
-    "builders/count_encounters.py",
-]
 
-[export_config]
-count_list = [
+[[stages.default]]
+type = "build:parallel"
+description = "metadata_tables"
+files = ["workflows/counts.workflow"]
+
+[[stages.default]]
+type = "export:counts"
+description = "condition count tables"
+tables = [
     "template__count_condition",
 ]
-annotated_count_list = [
+
+[[stages.default]]
+type = "export:annotated_counts"
+description = "annotated encounter count tables"
+tables = [
     "template__count_encounter_annotated",
 ]
-meta_list = [
+
+[[stages.default]]
+type = "export:meta"
+description = "metadata tables"
+tables = [
   "template__meta_date",
   "template__meta_version",
 ]
 ```
 
-This is doing three things:
+This is doing two things:
 - specifying the study prefix
-- specifying stages to run as groups of independent steps
-- providing a list of tables to export. They are organized by type, which we use when
-  we ship those files off for aggregation.
+- specifying a stage, containing a list of actions, which are used in building/exporting tables
 
 If something isn't in your manifest, it won't be run by the library tooling.
 
@@ -76,47 +99,22 @@ Python builders are more complex than writing SQL, but provide a couple of benef
 - Builders can inherit from others, so you can share some common functionality without
   reinventing the wheel.
 
-There are two kinds of example of this in the 
+There is an example of this in the 
 [builders](../cumulus-library-template/builders)
 directory:
 - [conditions.py](../cumulus-library-template/builders/conditions.py)
   is providing a basic join between two tables
-- [count_conditions.py](../cumulus-library-template/builders/count_conditions.py)
-  and
-  [count_encounters.py](../cumulus-library-template/builders/count_encounters.py)
-  both use the
-  [CountsBuilder](https://docs.smarthealthit.org/cumulus/library/api.html#countsbuilder)
-  class to create powerset count tables. count_encounter.py also shows using an annotation
-  to add additional metadata to a table.
-
 
 ## Using workflows
 
 Chances are, you're going to have :something: from a third party source - a list of codes,
 some analysis from another system, maybe something an SME manually IDed, that you want to
-include in a study.
+include in a study. You probably also want to generate some count outputs
 
-We provide a
-[workflow](https://docs.smarthealthit.org/cumulus/library/workflows.html)
+We provide
+[workflows](https://docs.smarthealthit.org/cumulus/library/workflows.html)
 for this. The goal of these generally is to turn something with a bunch of complex
-steps into a simple config file. You can read more details about this specific workflow
-in the 
-[project docs](https://docs.smarthealthit.org/cumulus/library/workflows/file_upload.html), 
-but most cases will look like
-[our example](../cumulus-library-template/workflows/upload_encounter_class.toml), which
-is just uploading a subset of the FHIR encounter class valueset that we're using to select
-from all available encounters
-```toml
-config_type="file_upload"
-[tables.encounter_valueset]
-file = "../data/encounter_class_valueset.tsv"
-delimiter = "\t"
-```
+steps into a simple config file.
 
-Here, we add a table named `encounter_valueset` to the list of file-driven tables, and provide
-two arguments - a file path to the raw source, and the delimiter used in the file. 
-For local builds you don't need anything else. For remote builds you'll need an active
-AWS session key in your profile; they way to do this will value by organization, so talk to
-your IT folks about it.
-
+Each workflow contains a link to the workflow documentation and comments describing general usage.
 Workflows can do a lot of very different things, so each kind will require different arguments. The docsite is the best place for more details about this.

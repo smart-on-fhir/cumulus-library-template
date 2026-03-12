@@ -40,6 +40,7 @@ def test_study_run(tmp_path):
         "template__count_encounter",
         "template__encounter",
         "template__encounter_valueset",
+        "template__lib_build_source",
         "template__lib_transactions",
         "template__meta_date",
         "template__meta_version",
